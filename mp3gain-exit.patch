@@ -1,0 +1,36 @@
+diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/gain_analysis.c mp3gain-1_4_6-src.zip_FILES/gain_analysis.c
+--- mp3gain-1_4_6-src.zip_FILES.OLD/gain_analysis.c	2004-04-03 02:24:36.000000000 -0500
++++ mp3gain-1_4_6-src.zip_FILES/gain_analysis.c	2006-11-20 17:10:06.000000000 -0500
+@@ -111,7 +111,7 @@
+ #define MAX_dB            120.          // Table entries for 0...MAX_dB (normal max. values are 70...80 dB)
+ 
+ #define MAX_ORDER               (BUTTER_ORDER > YULE_ORDER ? BUTTER_ORDER : YULE_ORDER)
+-#define MAX_SAMPLES_PER_WINDOW  (size_t) (MAX_SAMP_FREQ * RMS_WINDOW_TIME)      // max. Samples per Time slice
++#define MAX_SAMPLES_PER_WINDOW  (size_t) (MAX_SAMP_FREQ * RMS_WINDOW_TIME +1)      // max. Samples per Time slice
+ #define PINK_REF                64.82 //298640883795                              // calibration value
+ 
+ Float_t          linprebuf [MAX_ORDER * 2];
+diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mpglibDBL/common.c mp3gain-1_4_6-src.zip_FILES/mpglibDBL/common.c
+--- mp3gain-1_4_6-src.zip_FILES.OLD/mpglibDBL/common.c	2003-08-11 17:02:56.000000000 -0400
++++ mp3gain-1_4_6-src.zip_FILES/mpglibDBL/common.c	2006-11-20 17:12:10.000000000 -0500
+@@ -160,7 +160,7 @@
+       fprintf(stderr,"Stream error\n");
+       fclose(stdout);
+       fclose(stderr);
+-      exit(0);
++      exit(EXIT_FAILURE);
+     }
+     if(fr->mpeg25) {
+       fr->sampling_frequency = 6 + ((newhead>>10)&0x3);
+diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mpglibDBL/interface.c mp3gain-1_4_6-src.zip_FILES/mpglibDBL/interface.c
+--- mp3gain-1_4_6-src.zip_FILES.OLD/mpglibDBL/interface.c	2004-03-22 14:29:16.000000000 -0500
++++ mp3gain-1_4_6-src.zip_FILES/mpglibDBL/interface.c	2006-11-20 17:11:35.000000000 -0500
+@@ -137,7 +137,7 @@
+ 			fprintf(stderr,"Fatal error! tried to read past mp buffer\n");
+             fclose(stdout);
+             fclose(stderr);
+-			exit(0);
++			exit(EXIT_FAILURE);
+ 		}
+ 		pos = mp->tail->pos;
+ 	}
