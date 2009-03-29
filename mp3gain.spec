@@ -2,7 +2,7 @@
 
 Name:		mp3gain
 Version:	1.4.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 Group:		Applications/Multimedia
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.6-6
+- rebuild for new F11 features
+
 * Mon Aug 04 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 1.4.6-5
 - rebuild
 
