@@ -1,7 +1,6 @@
-diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/mp3gain.c
---- mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c	2004-12-23 15:47:04.000000000 -0500
-+++ mp3gain-1_4_6-src.zip_FILES/mp3gain.c	2006-11-20 17:14:03.000000000 -0500
-@@ -42,7 +42,11 @@
+--- mp3gain.c~	2010-05-19 05:48:34.000000000 +0200
++++ mp3gain.c	2011-10-04 16:57:33.654259207 +0200
+@@ -43,7 +43,11 @@
   *  out there will have come up with superior versions already...
   *
   *  So have fun dissecting.
@@ -14,7 +13,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  
  #include <stdio.h>
  #include <stdlib.h>
-@@ -117,8 +121,8 @@
+@@ -128,8 +132,8 @@
  unsigned char buffer[BUFFERSIZE];
  
  int writeself = 0;
@@ -25,7 +24,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  int NowWriting = 0;
  double lastfreq = -1.0;
  
-@@ -701,7 +705,8 @@
+@@ -760,7 +764,8 @@
  		        fclose(inf); 
  			inf = NULL;
              passError(MP3GAIN_UNSPECIFED_ERROR, 3,
@@ -35,7 +34,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  			return M3G_ERR_CANT_MAKE_TMP;
  		} 
   
-@@ -715,7 +720,8 @@
+@@ -774,7 +779,8 @@
  	  if (UsingTemp && (outf != NULL))
  		  fclose(outf);
  	  passError( MP3GAIN_UNSPECIFED_ERROR, 3,
@@ -45,7 +44,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  	  return M3G_ERR_CANT_MODIFY_FILE;
    }
    else {
-@@ -926,7 +932,8 @@
+@@ -975,7 +981,8 @@
  			passError(MP3GAIN_CANCELLED,3,"Cancelled processing.\n", filename, " is probably corrupted now.");
  		}
  		if (saveTime) 
@@ -55,7 +54,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  		return;
  	}
  #endif
-@@ -995,8 +1002,9 @@
+@@ -1044,8 +1051,9 @@
          if (outlength != inlength) {
              deleteFile(outfilename);
  			passError( MP3GAIN_UNSPECIFED_ERROR, 3,
@@ -67,7 +66,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
              return M3G_ERR_NOT_ENOUGH_TMP_SPACE;
          }
          else {
-@@ -1004,7 +1012,8 @@
+@@ -1053,7 +1061,8 @@
  		    if (deleteFile(filename)) {
  				deleteFile(outfilename); //try to delete tmp file
  				passError( MP3GAIN_UNSPECIFED_ERROR, 3,
@@ -77,7 +76,7 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  			    return M3G_ERR_CANT_MODIFY_FILE;
  		    }
  		    if (moveFile(outfilename, filename)) {
-@@ -1012,7 +1021,8 @@
+@@ -1061,7 +1070,8 @@
                      "Problem re-naming ", outfilename, " to ", filename, 
                      "\nThe mp3 was correctly modified, but you will need to re-name ", 
                      outfilename, " to ", filename, 
@@ -87,21 +86,22 @@ diff -ur mp3gain-1_4_6-src.zip_FILES.OLD/mp3gain.c mp3gain-1_4_6-src.zip_FILES/m
  			    return M3G_ERR_RENAME_TMP;
  		    };
  		    if (saveTime)
-@@ -1214,9 +1224,10 @@
- 		fprintf(stderr,"\t%cm <i> - modify suggested MP3 gain by integer i\n",SWITCH_CHAR);
+@@ -1327,11 +1337,12 @@
  		fprintf(stderr,"\t%cd <n> - modify suggested dB gain by floating-point n\n",SWITCH_CHAR);
  		fprintf(stderr,"\t%cc - ignore clipping warning when applying gain\n",SWITCH_CHAR);
--		fprintf(stderr,"\t%co - output is a database-friendly tab-delimited list\n",SWITCH_CHAR);
--		fprintf(stderr,"\t%ct - mp3gain writes modified mp3 to temp file, then deletes original\n",SWITCH_CHAR);
+ 		fprintf(stderr,"\t%co - output is a database-friendly tab-delimited list\n",SWITCH_CHAR);
+-		fprintf(stderr,"\t%ct - writes modified data to temp file, then deletes original\n",SWITCH_CHAR);
 -		fprintf(stderr,"\t     instead of modifying bytes in original file\n");
-+		fprintf(stderr,"\t%co - output is a database-friendly tab-delimited list\n",SWITCH_CHAR);
 +		fprintf(stderr,"\t%ct - mp3gain writes modified mp3 to temp file, then deletes original \n",SWITCH_CHAR);
-++		fprintf(stderr,"\t     instead of modifying bytes in original file (default)\n");
-++		fprintf(stderr,"\t%cT - mp3gain directly modifies mp3 file (opposite of %ct)\n",SWITCH_CHAR,SWITCH_CHAR);
++		fprintf(stderr,"\t     instead of modifying bytes in original file (default)\n");
+ #ifdef AACGAIN
+ 		fprintf(stderr,"\t     A temp file is always used for AAC files.\n");
+ #endif
++		fprintf(stderr,"\t%cT - mp3gain directly modifies mp3 file (opposite of %ct)\n",SWITCH_CHAR,SWITCH_CHAR);
  		fprintf(stderr,"\t%cq - Quiet mode: no status messages\n",SWITCH_CHAR);
  		fprintf(stderr,"\t%cp - Preserve original file timestamp\n",SWITCH_CHAR);
- 		fprintf(stderr,"\t%cx - Only find max. amplitude of mp3\n",SWITCH_CHAR);
-@@ -1505,9 +1516,12 @@
+ 		fprintf(stderr,"\t%cx - Only find max. amplitude of file\n",SWITCH_CHAR);
+@@ -1674,9 +1685,12 @@
  
                      break;
  

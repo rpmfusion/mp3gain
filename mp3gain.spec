@@ -1,19 +1,18 @@
-%define tarball_version 1_4_6
+%define tarball_version 1_5_2_r2
 
 Name:		mp3gain
-Version:	1.4.6
-Release:	6%{?dist}
+Version:	1.5.2
+Release:	1%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 Group:		Applications/Multimedia
 License:	LGPL
 URL:		http://mp3gain.sourceforge.net
-Source0:	http://osdn.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{tarball_version}-src.zip
+Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{tarball_version}-src.zip
 Source1:	%{name}.1.gz
 Source2:	README.method
-Patch0:		%{name}-tempfile-default.patch
-Patch1:		%{name}-exit.patch
-Patch2:		%{name}-cflags.patch
+Patch0:		%{name}-tempfile-1.5.2.patch
+Patch2:		%{name}-cflags-1.5.2.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 	
 
@@ -29,9 +28,8 @@ and re-encoding.
 
 %prep
 %setup -q -c %{name}-%{tarball_version}
-%patch0 -p1 -b .tempfile
-%patch1 -p1 -b .exit
-%patch2 -p1 -b .cflags
+%patch0 -p0 -b .tempfile
+%patch2 -p0 -b .cflags
 install -p -m 644 %{SOURCE2} .
 %{__sed} -i 's/\r//' lgpl.txt
 
@@ -58,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 04 2011 Karel Volný <kvolny@redhat.com> - 1.5.2-1
+- Version bump.
+- Updated the tempfile and cflags patches.
+- Removed the exit patch (applied upstream).
+
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.6-6
 - rebuild for new F11 features
 
@@ -75,4 +78,3 @@ rm -rf $RPM_BUILD_ROOT
 
 * Mon Nov 20 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.4.6-1
 - Initial Livna spec.
-
