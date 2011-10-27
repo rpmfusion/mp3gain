@@ -2,7 +2,7 @@
 
 Name:		mp3gain
 Version:	1.5.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 Group:		Applications/Multimedia
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 28 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.5.2-2
+- Fix for glibc bug rhbz#747377
+
 * Tue Oct 04 2011 Karel Volný <kvolny@redhat.com> - 1.5.2-1
 - Version bump.
 - Updated the tempfile and cflags patches.
