@@ -2,7 +2,7 @@
 
 Name:		mp3gain
 Version:	1.5.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 Group:		Applications/Multimedia
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Fri Oct 28 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.5.2-2
 - Fix for glibc bug rhbz#747377
 
