@@ -1,8 +1,8 @@
-%define tarball_version 1_5_2_r2
+%define tarball_version 1_6_1
 
 Name:		mp3gain
-Version:	1.5.2
-Release:	8%{?dist}
+Version:	1.6.1
+Release:	1%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 Group:		Applications/Multimedia
@@ -11,10 +11,10 @@ URL:		http://mp3gain.sourceforge.net
 Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{tarball_version}-src.zip
 Source1:	%{name}.1.gz
 Source2:	README.method
-Patch0:		%{name}-tempfile-1.5.2.patch
 Patch2:		%{name}-cflags-1.5.2.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-	
+
+BuildRequires: mpg123-devel
+
 
 %description
 MP3Gain analyzes and adjusts mp3 files so that they have the same
@@ -28,34 +28,33 @@ and re-encoding.
 
 %prep
 %setup -q -c %{name}-%{tarball_version}
-%patch0 -p0 -b .tempfile
 %patch2 -p0 -b .cflags
 install -p -m 644 %{SOURCE2} .
 %{__sed} -i 's/\r//' lgpl.txt
 
 
 %build
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -Dp -m 755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1.gz
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
 %files
-%defattr(-,root,root,-)
-%doc lgpl.txt README.method
+%doc README.method
+%license lgpl.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Mon Apr 30 2018 Sérgio Basto <sergio@serjux.com> - 1.6.1-1
+- Update to 1.6.1
+- Drop upstreamed patch
+- Update spec
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.5.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
