@@ -2,7 +2,7 @@
 
 Name:		mp3gain
 Version:	1.6.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 Group:		Applications/Multimedia
@@ -50,6 +50,9 @@ install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Apr 30 2018 Sérgio Basto <sergio@serjux.com> - 1.6.1-1
 - Update to 1.6.1
 - Drop upstreamed patch
