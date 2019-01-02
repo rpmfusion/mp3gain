@@ -13,6 +13,7 @@ Source1:	%{name}.1.gz
 Source2:	README.method
 Patch2:		%{name}-cflags-1.5.2.patch
 
+BuildRequires: gcc
 BuildRequires: mpg123-devel
 
 
@@ -52,6 +53,7 @@ install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1.gz
 %changelog
 * Wed Jan 02 2019 Sérgio Basto <sergio@serjux.com> - 1.6.2-1
 - Update to 1.6.2
+- Add BuildRequires: gcc
 
 * Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
